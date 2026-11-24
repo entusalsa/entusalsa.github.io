@@ -1,0 +1,482 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>En Tu Salsa – Pastas Artesanales</title>
+<style>
+:root{--bordo:#b3301e;--bordo2:#7d1f12;--crema:#f8eedb;--crema2:#e8d5b5;--verde:#4a5a2c;--pasta:#e9b44c;--cuadros:rgba(179,48,30,.38);--blanco:#fffdf9;--tinta:#2a1b17;
+color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-behavior:smooth;scroll-padding-top:64px}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--crema);color:var(--tinta);font:400 16px/1.5 "Nunito Sans",system-ui,sans-serif;padding-bottom:84px}
+h1,h2,h3{font-family:Fraunces,Georgia,serif;margin:0;line-height:1.1}
+button,input,select,textarea{font:inherit}
+a{color:inherit}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:999px;padding:14px 26px;font-weight:800;letter-spacing:.03em;text-decoration:none;cursor:pointer;min-height:48px}
+.btn-main{background:var(--crema);color:var(--bordo)}
+.btn-bordo{background:var(--bordo);color:#fff}
+.btn-verde{background:var(--verde);color:#fff}
+.btn-line{background:transparent;color:inherit;border:2px solid currentColor}
+:focus-visible{outline:3px solid #e0a43a;outline-offset:2px}
+/* hero */
+.hero{background:var(--bordo);color:var(--crema);display:grid;grid-template-columns:1.1fr .9fr;min-height:92vh}
+.hero-txt{padding:40px 6vw;display:flex;flex-direction:column;justify-content:center;gap:22px}
+.logo{display:flex;align-items:center;gap:12px}
+.logo img{height:72px;width:auto}
+.wordmark{font-family:Fraunces,serif;font-weight:800;font-size:1.9rem;line-height:1}
+.wordmark small{display:block;font:600 .8rem "Nunito Sans";letter-spacing:.14em;opacity:.8;margin-top:4px}
+.hero h1{font-size:clamp(2.4rem,6vw,4.4rem);font-weight:800;max-width:14ch}
+.hero p{max-width:40ch;font-size:1.1rem;opacity:.92;margin:0}
+.hero-cta{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.hero-ph{position:relative;background:var(--bordo2) center/cover;display:grid;place-items:center;min-height:300px}
+.hero-ph span{font-size:7rem}
+.hero-ph em{position:absolute;bottom:14px;left:14px;right:14px;font-style:normal;font-size:.8rem;opacity:.7;text-align:center}
+/* nav */
+.cats{position:sticky;top:0;z-index:20;background:var(--blanco);border-bottom:1px solid var(--crema2);display:flex;gap:8px;overflow-x:auto;padding:10px 4vw;padding-top:calc(10px + env(safe-area-inset-top,0px))}
+.cats a{white-space:nowrap;text-decoration:none;font-weight:800;color:var(--verde);padding:8px 16px;border-radius:999px;background:var(--crema)}
+.cats a:hover{background:var(--verde);color:#fff}
+/* catálogo */
+main{max-width:1180px;margin:0 auto;padding:0 4vw}
+section.cat{padding:48px 0 8px}
+section.cat>h2{font-size:clamp(1.8rem,4vw,2.6rem);color:var(--bordo);margin-bottom:6px}
+section.cat>p{margin:0 0 22px;color:var(--verde);font-weight:600}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:20px}
+.card{background:var(--blanco);border-radius:20px 20px 28px 28px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 2px 0 var(--crema2)}
+.ph{aspect-ratio:4/3;background:var(--crema2) center/cover;display:grid;place-items:center;font-size:4rem}
+.ph.c-p{background-color:#e9cfa6}.ph.c-s{background-color:#e7b9a8}.ph.c-c{background-color:#c9d6bd}
+.body{padding:16px;display:flex;flex-direction:column;gap:10px;flex:1}
+.body h3{font-size:1.3rem;color:var(--bordo)}
+.body p{margin:0;font-size:.92rem;opacity:.85;flex:1}
+.price{font-family:Fraunces,serif;font-weight:800;font-size:1.35rem;color:var(--verde)}
+.price small{font:600 .8rem "Nunito Sans";opacity:.7}
+select,input[type=text],input[type=tel],textarea{width:100%;padding:11px 12px;border-radius:12px;border:2px solid var(--crema2);background:#fff;color:var(--tinta)}
+.row{display:flex;gap:10px;align-items:center}
+.qty{display:inline-flex;align-items:center;border:2px solid var(--crema2);border-radius:999px;background:#fff}
+.qty button{width:40px;height:40px;border:0;background:none;font-size:1.3rem;font-weight:800;color:var(--bordo);cursor:pointer}
+.qty b{min-width:26px;text-align:center}
+.add{flex:1;padding:12px 10px;font-size:.85rem}
+/* info */
+.info{background:var(--verde);color:var(--crema);margin-top:56px;padding:48px 4vw}
+.info>div{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:28px}
+.info h2{font-size:2rem;grid-column:1/-1}
+.info h3{font-size:1.15rem;margin-bottom:8px}
+.info p{margin:0 0 6px}
+footer{background:var(--bordo2);color:var(--crema);text-align:center;padding:20px;font-size:.85rem}
+/* barra carrito */
+.bar{position:fixed;left:0;right:0;bottom:0;z-index:30;background:var(--bordo);color:#fff;border:0;width:100%;display:flex;justify-content:space-between;align-items:center;padding:14px 5vw;padding-bottom:calc(14px + env(safe-area-inset-bottom,0px));font-weight:800;cursor:pointer;font-size:1rem;box-shadow:0 -4px 16px rgba(0,0,0,.25)}
+.bar .n{background:var(--crema);color:var(--bordo);border-radius:999px;padding:2px 11px;margin-right:10px}
+/* drawer */
+.ov{position:fixed;inset:0;background:rgba(30,10,10,.55);z-index:40;display:none}
+.ov.open{display:block}
+.dr{position:absolute;right:0;top:0;bottom:0;width:min(440px,100%);background:var(--blanco);display:flex;flex-direction:column}
+.dr header{display:flex;justify-content:space-between;align-items:center;padding:16px 18px;padding-top:calc(16px + env(safe-area-inset-top,0px));border-bottom:1px solid var(--crema2)}
+.dr header h2{font-size:1.5rem;color:var(--bordo)}
+.x{border:0;background:var(--crema);width:40px;height:40px;border-radius:50%;font-size:1.2rem;cursor:pointer}
+.dr .scroll{flex:1;overflow:auto;padding:16px 18px}
+.dr footer{background:none;color:inherit;border-top:1px solid var(--crema2);padding:14px 18px;padding-bottom:calc(14px + env(safe-area-inset-bottom,0px));text-align:left;display:grid;gap:10px}
+.it{display:grid;grid-template-columns:1fr auto;gap:6px 12px;padding:12px 0;border-bottom:1px dashed var(--crema2)}
+.it .nm{font-weight:800}.it .vr{font-size:.85rem;opacity:.75}
+.it .sub{font-weight:800;color:var(--verde);text-align:right}
+.del{border:0;background:none;color:var(--bordo);text-decoration:underline;cursor:pointer;font-size:.85rem}
+.tot{display:flex;justify-content:space-between;font-family:Fraunces,serif;font-size:1.4rem;font-weight:800}
+.f{display:grid;gap:12px}
+.f label{font-weight:800;font-size:.9rem;display:grid;gap:5px}
+.opts{display:grid;gap:8px}
+.opts label{flex-direction:row;display:flex;gap:10px;align-items:center;font-weight:600;padding:10px 12px;border:2px solid var(--crema2);border-radius:12px}
+.err{color:#a1121f;font-weight:800;font-size:.9rem;min-height:1.2em}
+.note{font-size:.85rem;opacity:.8}
+.empty{text-align:center;padding:40px 10px;opacity:.8}
+@media(max-width:760px){.hero{grid-template-columns:1fr;min-height:0}.hero-ph{order:-1;min-height:220px}.hero-ph span{font-size:5rem}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+.hero-logo{margin:32px 0;width:min(62vw,340px);height:auto;border-radius:50%;box-shadow:0 12px 34px rgba(0,0,0,.4)}.logo img{height:110px}
+
+/* ===== rediseño: trattoria moderna ===== */
+:root{--mantel:linear-gradient(90deg,var(--cuadros) 50%,transparent 0),linear-gradient(var(--cuadros) 50%,transparent 0)}
+.hero h1{font-style:italic;font-weight:800;font-size:clamp(2.8rem,7vw,5.4rem);letter-spacing:-.02em;line-height:1;max-width:11ch}
+.hero p{font-size:1.15rem;max-width:36ch}
+.btn-main{background:var(--crema);color:var(--bordo2);box-shadow:0 4px 0 var(--bordo2)}
+.btn-line{border-width:2px}
+.hero-ph{background-color:var(--crema);background-image:var(--mantel);background-size:cover;background-position:46% 50%}
+.hero-logo{border:8px solid #fffdf9;animation:entra .9s cubic-bezier(.2,.8,.3,1) both}
+@keyframes entra{from{transform:scale(.86) rotate(-6deg);opacity:0}to{transform:none;opacity:1}}
+.cats{justify-content:center;background:var(--crema);border-bottom:2px solid var(--bordo);gap:22px}
+.cats a{background:none;border-radius:0;padding:8px 2px;font-family:Fraunces,Georgia,serif;font-style:italic;font-size:1.15rem;color:var(--bordo);border-bottom:3px solid transparent}
+.cats a:hover{background:none;color:var(--bordo2);border-bottom-color:var(--pasta)}
+section.cat{padding-top:56px}
+section.cat::before{content:"";display:block;height:16px;margin-bottom:26px;background-color:var(--crema);background-image:var(--mantel);background-size:16px 16px;border-radius:3px}
+section.cat>h2{font-style:italic;font-size:clamp(2.2rem,5vw,3.4rem);letter-spacing:-.01em}
+section.cat>p{font-size:1.05rem}
+.grid{gap:34px 24px}
+.card{border-radius:130px 130px 22px 22px;background:var(--blanco);border:1.5px solid var(--crema2);box-shadow:none;text-align:center}
+.ph{aspect-ratio:5/4}
+.body{padding:18px 18px 20px}
+.body h3{font-style:italic;font-size:1.35rem}
+.price{font-size:1.5rem;color:var(--bordo)}
+.row{justify-content:center}
+.btn-bordo{box-shadow:0 3px 0 var(--bordo2)}
+.qty{border-color:var(--bordo)}
+.info{position:relative;padding-top:64px;background:var(--verde)}
+.info::before{content:"";position:absolute;left:0;right:0;top:0;height:16px;background-color:var(--crema);background-image:var(--mantel);background-size:16px 16px}
+.info h2{font-style:italic;font-size:2.4rem}
+.bar{border-top:3px solid var(--pasta)}
+.bar .n{background:var(--pasta);color:var(--bordo2)}
+.dr header h2,.tot{font-style:italic}
+@media(prefers-reduced-motion:reduce){.hero-logo{animation:none}}
+
+/* ===== premium: portada con foto, beneficios, WhatsApp ===== */
+.hero{min-height:88vh;background:radial-gradient(120% 90% at 0 0,var(--bordo) 40%,var(--bordo2))}
+.hero-ph{margin:36px 4vw 36px 0;min-height:560px;border:8px solid var(--crema);border-radius:280px 280px 28px 28px;box-shadow:0 26px 50px rgba(40,8,4,.45);animation:entra 1s cubic-bezier(.2,.8,.3,1) both}
+.logo img{height:96px;border-radius:50%;border:4px solid var(--crema)}
+.perks{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:18px 28px;background:var(--crema);padding:28px 5vw;border-bottom:1px solid var(--crema2)}
+.perks div{display:grid;gap:2px}
+.perks b{font:italic 800 1.2rem Fraunces,Georgia,serif;color:var(--bordo)}
+.perks span{font-size:.92rem;opacity:.85}
+.ph{position:relative}
+.tag{position:absolute;top:16px;left:50%;transform:translateX(-50%);background:var(--pasta);color:var(--bordo2);font-weight:800;font-size:.78rem;padding:4px 14px;border-radius:999px;box-shadow:0 2px 6px rgba(0,0,0,.2)}
+.grid{grid-template-columns:repeat(auto-fill,minmax(270px,1fr))}
+.ph{aspect-ratio:1/1}
+.card,.btn{transition:transform .25s ease,box-shadow .25s ease,background .2s}
+.btn:active{transform:translateY(2px);box-shadow:none}
+@media(hover:hover){.card:hover{transform:translateY(-6px);box-shadow:0 20px 34px rgba(74,40,20,.18)}.btn-bordo:hover{background:var(--bordo2)}}
+.fab{position:fixed;right:14px;bottom:calc(84px + env(safe-area-inset-bottom,0px));z-index:29;display:inline-flex;align-items:center;gap:6px;min-height:48px;padding:0 18px;border-radius:999px;background:#1a8f4c;color:#fff;font-weight:800;text-decoration:none;box-shadow:0 8px 20px rgba(0,0,0,.3)}
+@media(max-width:760px){.hero-ph{margin:20px 5vw 0;min-height:360px;border-radius:190px 190px 22px 22px}.hero{min-height:0}}
+@media(prefers-reduced-motion:reduce){.hero-ph{animation:none}.card,.btn{transition:none}}
+.bar{font-size:1.15rem;letter-spacing:.04em;padding-top:18px;padding-bottom:calc(18px + env(safe-area-inset-bottom,0px));background:var(--bordo2)}
+.bar .n{font-size:1.05rem}
+body{padding-bottom:96px}
+.fab{bottom:calc(100px + env(safe-area-inset-bottom,0px))}
+.solo{text-align:center;font-weight:800;font-size:.95rem;color:var(--bordo2);background:var(--crema);border:2px dashed var(--bordo);border-radius:999px;padding:12px 10px}
+.card.agotado .ph{filter:grayscale(1);opacity:.55}
+.card.agotado .tag{background:#6b6560;color:#fff}
+.card.agotado .price{opacity:.5}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-txt">
+    <div class="logo" id="logo"></div>
+    <h1>El sabor de lo artesanal, listo para disfrutar</h1>
+    <p>Pastas frescas, salsas y comidas caseras, hechas en Concordia con ingredientes de verdad y porciones abundantes.</p>
+    <div class="hero-cta">
+      <a class="btn btn-main" href="#catalogo">HACÉ TU PEDIDO</a>
+      <a class="btn btn-line" id="igHero" target="_blank" rel="noopener">Instagram</a>
+      <a class="btn btn-line" id="waHero" target="_blank" rel="noopener">WhatsApp</a>
+    </div>
+  </div>
+  <div class="hero-ph" id="heroPh"><span>🍝</span><em>Reemplazá esta imagen en CONFIG.heroImg</em></div>
+</header>
+
+<nav class="cats" id="cats" aria-label="Categorías"></nav>
+<main id="catalogo"></main>
+
+<section class="info" id="contacto">
+  <div>
+    <h2>Encontranos</h2>
+    <div><h3>Local</h3><p id="dir"></p></div>
+    <div><h3>Horarios</h3><div id="hor"></div></div>
+    <div><h3>Contacto</h3>
+      <p><a id="waInfo" target="_blank" rel="noopener"></a></p>
+      <p><a id="igInfo" target="_blank" rel="noopener"></a></p>
+      <p style="margin-top:14px"><a class="btn btn-main" id="waBtn" target="_blank" rel="noopener">Consultar por WhatsApp</a></p>
+    </div>
+  </div>
+</section>
+<footer>© En Tu Salsa – Pastas Artesanales · Concordia, Entre Ríos</footer>
+
+<a class="fab" id="waFab" target="_blank" rel="noopener">💬 Escribinos</a>
+<button class="bar" id="bar" aria-label="Abrir carrito y enviar pedido"><span><span class="n" id="barN">0</span>🛒 CARRITO</span><span><span id="barT">$0</span> ›</span></button>
+
+<div class="ov" id="ov" role="dialog" aria-modal="true" aria-label="Mi pedido">
+  <div class="dr">
+    <header><h2 id="drT">Mi pedido</h2><button class="x" id="close" aria-label="Cerrar">✕</button></header>
+    <div class="scroll" id="drB"></div>
+    <footer id="drF"></footer>
+  </div>
+</div>
+
+<script>
+/* =====================================================================
+   PRECIOS Y DATOS DE EN TU SALSA
+   Para cambiar un precio: buscá el producto (Control + F + el nombre)
+   y cambiá el número que está después de  precio:  (sin puntos ni signo $).
+   Ejemplo:  precio: 13500
+   Las fotos están en la carpeta img/ (el nombre del archivo está en  img:).
+   ===================================================================== */
+/* ============ CONFIGURACIÓN: editá solo esta sección ============ */
+const CONFIG = {
+  nombre: "En Tu Salsa",
+  hojaStock: "https://docs.google.com/spreadsheets/d/e/2PACX-1vTyu6Ai_vtemrxq8N8SjerL0mlrugPGMuTmufa_4gVzjmrOUaVb16ia43KVV110c6znn146DBvCSZMD/pub?gid=87752704&single=true&output=csv",            // link CSV de la planilla de stock (Google Sheets). Vacío = usa solo las listas SIN_STOCK / STOCK_LIMITADO
+  whatsapp: "5493454156026",          // formato internacional, sin + ni espacios
+  instagram: "entusalsa_pastas",
+  telefonoVisible: "345 415-6026",
+  direccion: "Rafael Obligado 72, Concordia, Entre Ríos",
+  horarios: ["Lunes: cerrado","Martes y miércoles: 10:00 a 13:00 y 18:00 a 21:00","Jueves: 10:00 a 13:00 y 18:15 a 21:00","Viernes y sábados: 10:00 a 13:00 y 18:00 a 21:00","Domingos: 10:00 a 13:00"],
+  logo: "img/logo.webp",      // URL o imagen en base64 del logo (vacío = muestra el nombre)
+  heroImg: "img/portada.webp"    // URL o base64 de la foto principal
+};
+/* Cada producto: img vacío = muestra un recuadro; poné la URL o base64 de tu foto.
+   u = [singular, plural] de la unidad. variedades: lista de opciones (o [] si no hay). */
+/* =====================================================================
+   STOCK  (esto es lo único que tenés que tocar para avisar que algo se agotó)
+   - SIN_STOCK:      el producto se ve gris con cartel "Sin stock" y no se puede pedir.
+   - STOCK_LIMITADO: el producto muestra el cartel "¡Stock limitado!" y se puede pedir.
+   Escribí el código entre comillas y separado por comas. Ejemplo:
+      const SIN_STOCK = ["sjq", "fver"];
+   Para volver a tener stock, borrá el código de la lista.
+   Códigos:
+   sjq    = Sorrentinos de Jamón y Queso
+   sver   = Sorrentinos de Verdura
+   s4q    = Sorrentinos de 4 Quesos
+   soso   = Sorrentinos de Osobuco
+   scal   = Sorrentinos de Calabaza
+   scap   = Sorrentinos Caprese
+   rjr    = Ravioles de Jamón y Ricota
+   rvr    = Ravioles de Verdura y Ricota
+   nrel   = Ñoquis Rellenos
+   ntrad  = Ñoquis Tradicionales
+   fhue   = Fideos al Huevo
+   fver   = Fideos Verdes
+   fmor   = Fideos al Morrón
+   cver   = Canelones de Verdura
+   cpol   = Canelones de Pollo
+   lasv   = Lasaña de Verdura
+   s4qs   = Salsa Cuatro Quesos
+   sbol   = Salsa Bolognesa
+   sfil   = Salsa Fileto
+   tver   = Tarta de Verdura
+   tpol   = Tarta de Pollo
+   ejq    = Empanadas de Jamón y Queso
+   epol   = Empanadas de Pollo
+   miga   = Triples de Miga de Jamón y Queso
+   pi0    = Postre individual: Cheesecake
+   pi1    = Postre individual: Chocotorta
+   pi2    = Postre individual: Postre Oreo
+   pi3    = Postre individual: Banana Split
+   pi4    = Postre individual: Brownie
+   t0     = Torta Brownie
+   t1     = Torta Cheesecake
+   t2     = Tarta de Frutillas
+   t3     = Lemon Pie
+   t4     = Tarta Frutal
+   ===================================================================== */
+const SIN_STOCK = [];
+const STOCK_LIMITADO = [];
+
+const CATEGORIAS = [
+  {id:"pastas", nombre:"Pastas artesanales", sub:"Amasadas a mano, frescas y listas para hervir.", cls:"c-p", icono:"🍝"},
+  {id:"salsas", nombre:"Salsas", sub:"Caseras, para acompañar tu pasta.", cls:"c-s", icono:"🍅"},
+  {id:"comidas", nombre:"Comidas y otras opciones", sub:"Para resolver el almuerzo, la cena o la juntada.", cls:"c-c", icono:"🥧"}
+];
+const PRODUCTOS = [
+  {id: "sjq", cat: "pastas", nombre: "Sorrentinos de Jamón y Queso", desc: "x 16 unidades (2 personas).", precio: 13500, u: ["pack", "packs"], variedades: [], img: "img/producto-01.webp"},
+  {id: "sver", cat: "pastas", nombre: "Sorrentinos de Verdura", desc: "Espinaca, mix de vegetales y parmesano. x 16 unidades (2 personas).", precio: 13000, u: ["pack", "packs"], variedades: [], img: "img/producto-02.webp"},
+  {id: "s4q", cat: "pastas", nombre: "Sorrentinos de 4 Quesos", desc: "Dambo, muzzarella, parmesano y roquefort. x 16 unidades (2 personas).", precio: 13500, u: ["pack", "packs"], variedades: [], img: "img/producto-03.webp"},
+  {id: "soso", cat: "pastas", nombre: "Sorrentinos de Osobuco", desc: "Osobuco al malbec con mix de vegetales. x 16 unidades (2 personas).", precio: 15000, u: ["pack", "packs"], variedades: [], img: "img/producto-04.webp"},
+  {id: "scal", cat: "pastas", nombre: "Sorrentinos de Calabaza", desc: "Cabutia asada, cebolla caramelizada y muzzarella. x 16 unidades (2 personas).", precio: 13000, u: ["pack", "packs"], variedades: [], img: "img/producto-05.webp"},
+  {id: "scap", cat: "pastas", nombre: "Sorrentinos Caprese", desc: "Tomates cherry confitados, albahaca y muzzarella. x 16 unidades (2 personas).", precio: 13000, u: ["pack", "packs"], variedades: [], img: "img/producto-06.webp"},
+  {id: "rjr", cat: "pastas", nombre: "Ravioles de Jamón y Ricota", desc: "2 planchas tradicionales (3 o 4 personas aprox.).", precio: 12500, u: ["pack", "packs"], variedades: [], img: "img/producto-07.webp"},
+  {id: "rvr", cat: "pastas", nombre: "Ravioles de Verdura y Ricota", desc: "2 planchas tradicionales (3 o 4 personas aprox.).", precio: 12500, u: ["pack", "packs"], variedades: [], img: "img/producto-08.webp"},
+  {id: "nrel", cat: "pastas", nombre: "Ñoquis Rellenos", desc: "Ñoquis de papa rellenos de muzzarella.", precio: 16000, u: ["kg", "kg"], variedades: [], img: "img/producto-09.webp"},
+  {id: "ntrad", cat: "pastas", nombre: "Ñoquis Tradicionales", desc: "Ñoquis de papa.", precio: 12500, u: ["kg", "kg"], variedades: [], img: "img/producto-10.webp"},
+  {id: "fhue", cat: "pastas", nombre: "Fideos al Huevo", desc: "Artesanales.", precio: 8000, u: ["kg", "kg"], variedades: ["Anchos", "Finos"], img: "img/producto-11.webp"},
+  {id: "fver", cat: "pastas", nombre: "Fideos Verdes", desc: "De espinaca, sin colorantes artificiales.", precio: 9000, u: ["kg", "kg"], variedades: [], img: "img/producto-12.webp"},
+  {id: "fmor", cat: "pastas", nombre: "Fideos al Morrón", desc: "Con morrones asados, sin colorantes artificiales.", precio: 9000, u: ["kg", "kg"], variedades: [], img: "img/producto-13.webp"},
+  {id: "cver", cat: "pastas", nombre: "Canelones de Verdura", desc: "Espinaca, mix de vegetales, parmesano y muzzarella. x 6 unidades.", precio: 9500, u: ["bandeja", "bandejas"], variedades: [], img: "img/producto-14.webp"},
+  {id: "cpol", cat: "pastas", nombre: "Canelones de Pollo", desc: "Pollo con mix de vegetales y un toque de queso crema. x 6 unidades.", precio: 10500, u: ["bandeja", "bandejas"], variedades: [], img: "img/producto-15.webp"},
+  {id: "lasv", cat: "pastas", nombre: "Lasaña de Verdura", desc: "Espinaca y mix de vegetales, jamón, queso y salsa bolognesa. Porción individual.", precio: 9000, u: ["porción", "porciones"], variedades: [], img: "img/producto-16.webp"},
+  {id: "s4qs", cat: "salsas", nombre: "Salsa Cuatro Quesos", desc: "Base de blanca y crema con mix de quesos. x 500 g.", precio: 10000, u: ["salsa", "salsas"], variedades: [], img: "img/producto-17.webp"},
+  {id: "sbol", cat: "salsas", nombre: "Salsa Bolognesa", desc: "Carne picada, pimientos, cebolla y tomate triturado. x 500 g.", precio: 8000, u: ["salsa", "salsas"], variedades: [], img: "img/producto-18.webp"},
+  {id: "sfil", cat: "salsas", nombre: "Salsa Fileto", desc: "Tomate triturado y mix de verduras salteadas. x 500 g.", precio: 7000, u: ["salsa", "salsas"], variedades: [], img: "img/producto-19.webp"},
+  {id: "tver", cat: "comidas", nombre: "Tarta de Verdura", desc: "Congelada.", precio: 8000, u: ["tarta", "tartas"], variedades: [], img: "img/producto-20.webp"},
+  {id: "tpol", cat: "comidas", nombre: "Tarta de Pollo", desc: "Congelada.", precio: 8000, u: ["tarta", "tartas"], variedades: [], img: "img/producto-21.webp"},
+  {id: "ejq", cat: "comidas", nombre: "Empanadas de Jamón y Queso", desc: "Congeladas. x 1/2 docena.", precio: 12000, u: ["media docena", "medias docenas"], variedades: [], img: "img/producto-22.webp"},
+  {id: "epol", cat: "comidas", nombre: "Empanadas de Pollo", desc: "Congeladas. x 1/2 docena.", precio: 12000, u: ["media docena", "medias docenas"], variedades: [], img: "img/producto-23.webp"},
+  {id: "miga", cat: "comidas", nombre: "Triples de Miga de Jamón y Queso", desc: "Precio por kilo.", precio: 23000, u: ["kg", "kg"], variedades: [], img: "img/producto-24.webp"},
+  {id: "pi0", cat: "comidas", nombre: "Postre individual: Cheesecake", desc: "", precio: 6000, u: ["postre", "postres"], variedades: [], img: "img/producto-25.webp"},
+  {id: "pi1", cat: "comidas", nombre: "Postre individual: Chocotorta", desc: "", precio: 6000, u: ["postre", "postres"], variedades: [], img: "img/producto-26.webp"},
+  {id: "pi2", cat: "comidas", nombre: "Postre individual: Postre Oreo", desc: "", precio: 6000, u: ["postre", "postres"], variedades: [], img: "img/producto-27.webp"},
+  {id: "pi3", cat: "comidas", nombre: "Postre individual: Banana Split", desc: "", precio: 6000, u: ["postre", "postres"], variedades: [], img: "img/producto-28.webp"},
+  {id: "pi4", cat: "comidas", nombre: "Postre individual: Brownie", desc: "", precio: 6000, u: ["postre", "postres"], variedades: [], img: "img/producto-29.webp"},
+  {id: "t0", soloPedido: true, cat: "comidas", nombre: "Torta Brownie", desc: "Rinde 8 porciones.", precio: 33000, u: ["entera", "enteras"], variedades: [], img: "img/producto-30.webp"},
+  {id: "t1", soloPedido: true, cat: "comidas", nombre: "Torta Cheesecake", desc: "Rinde 8 porciones.", precio: 33000, u: ["entera", "enteras"], variedades: [], img: "img/producto-31.webp"},
+  {id: "t2", soloPedido: true, cat: "comidas", nombre: "Tarta de Frutillas", desc: "Rinde 8 porciones.", precio: 16500, u: ["entera", "enteras"], variedades: [], img: "img/producto-32.webp"},
+  {id: "t3", soloPedido: true, cat: "comidas", nombre: "Lemon Pie", desc: "Rinde 8 porciones.", precio: 16500, u: ["entera", "enteras"], variedades: [], img: "img/producto-33.webp"},
+  {id: "t4", soloPedido: true, cat: "comidas", nombre: "Tarta Frutal", desc: "Rinde 8 porciones.", precio: 23000, u: ["entera", "enteras"], variedades: [], img: "img/producto-34.webp"}
+];
+/* ============ FIN DE CONFIGURACIÓN ============ */
+
+</script>
+<script>
+
+
+const $ = s => document.querySelector(s);
+const money = n => "$" + Math.round(n).toLocaleString("es-AR");
+const wa = (t) => "https://wa.me/" + CONFIG.whatsapp + (t ? "?text=" + encodeURIComponent(t) : "");
+const ig = "https://www.instagram.com/" + CONFIG.instagram + "/";
+let cart = [];
+try { cart = JSON.parse(localStorage.getItem("ets-cart") || "[]") || []; } catch (e) { cart = []; }
+const save = () => { try { localStorage.setItem("ets-cart", JSON.stringify(cart)); } catch (e) {} };
+const prod = id => PRODUCTOS.find(p => p.id === id);
+const lineTotal = l => (prod(l.id) ? prod(l.id).precio * l.q : 0);
+const total = () => cart.reduce((a, l) => a + lineTotal(l), 0);
+const unidad = (p, q) => q === 1 ? p.u[0] : p.u[1];
+cart = cart.filter(l => prod(l.id) && !prod(l.id).soloPedido && !SIN_STOCK.includes(l.id));
+
+/* estáticos */
+$("#logo").innerHTML = CONFIG.logo ? `<img src="${CONFIG.logo}" alt="${CONFIG.nombre}" fetchpriority="high" decoding="async">` : `<div class="wordmark">EN TU SALSA<small>PASTAS ARTESANALES</small></div>`;
+if (CONFIG.heroImg) { $("#heroPh").style.backgroundImage = `url("${CONFIG.heroImg}")`; $("#heroPh").innerHTML = ""; } else if (CONFIG.logo) { $("#heroPh").innerHTML = `<img class="hero-logo" src="${CONFIG.logo}" alt="${CONFIG.nombre}" fetchpriority="high" decoding="async">`; $("#logo").style.display = "none"; }
+["igHero"].forEach(i => $("#" + i).href = ig);
+$("#waHero").href = wa("¡Hola En Tu Salsa! Quiero hacer una consulta.");
+$("#waBtn").href = wa("¡Hola En Tu Salsa! Quiero hacer una consulta.");
+$("#waInfo").href = wa(""); $("#waInfo").textContent = "WhatsApp: " + CONFIG.telefonoVisible;
+$("#igInfo").href = ig; $("#igInfo").textContent = "Instagram: @" + CONFIG.instagram;
+$("#dir").textContent = CONFIG.direccion;
+$("#hor").innerHTML = CONFIG.horarios.map(h => `<p>${h}</p>`).join("");
+
+/* catálogo */
+const etiqueta = p => SIN_STOCK.includes(p.id) ? "Sin stock" : STOCK_LIMITADO.includes(p.id) ? "¡Stock limitado!" : (p.tag || "");
+$("#cats").innerHTML = CATEGORIAS.map(c => `<a href="#${c.id}">${c.nombre}</a>`).join("");
+const renderCatalogo = () => { $("#catalogo").innerHTML = CATEGORIAS.map(c => `
+  <section class="cat" id="${c.id}"><h2>${c.nombre}</h2><p>${c.sub}</p>
+  <div class="grid">${PRODUCTOS.filter(p => p.cat === c.id).map(p => `
+    <article class="card${SIN_STOCK.includes(p.id) ? " agotado" : ""}" data-id="${p.id}">
+      <div class="ph ${c.cls}" ${p.img ? `style="background-image:url('${p.img}')"` : ""} role="img" aria-label="${p.nombre}">${p.img ? "" : c.icono}${etiqueta(p) ? `<span class="tag">${etiqueta(p)}</span>` : ""}</div>
+      <div class="body">
+        <h3>${p.nombre}</h3><p>${p.desc}</p>
+        <div class="price">${money(p.precio)} <small>/ ${p.u[0]}</small></div>
+        ${p.variedades.length ? `<select aria-label="Variedad de ${p.nombre}">${p.variedades.map(v => `<option>${v}</option>`).join("")}</select>` : ""}
+        ${p.soloPedido ? `<div class="solo">Tortas solo por pedido</div>` : SIN_STOCK.includes(p.id) ? `<div class="solo">Sin stock por ahora</div>` : `<div class="row">
+          <div class="qty"><button data-d="-1" aria-label="Menos">−</button><b>1</b><button data-d="1" aria-label="Más">+</button></div>
+          <button class="btn btn-bordo add">AGREGAR AL PEDIDO</button>
+        </div>`}
+      </div>
+    </article>`).join("")}</div></section>`).join(""); };
+renderCatalogo();
+
+$("#catalogo").addEventListener("click", e => {
+  const card = e.target.closest(".card"); if (!card) return;
+  const b = card.querySelector(".qty b");
+  if (e.target.dataset.d) { b.textContent = Math.max(1, Math.min(99, +b.textContent + +e.target.dataset.d)); return; }
+  if (e.target.classList.contains("add")) {
+    const id = card.dataset.id, sel = card.querySelector("select"), v = sel ? sel.value : "", q = +b.textContent;
+    const ex = cart.find(l => l.id === id && l.v === v);
+    if (ex) ex.q = Math.min(99, ex.q + q); else cart.push({id, v, q});
+    b.textContent = 1; save(); paintBar();
+    const t = e.target; t.textContent = "¡AGREGADO!"; setTimeout(() => t.textContent = "AGREGAR AL PEDIDO", 1100);
+  }
+});
+
+/* barra y carrito */
+function paintBar() {
+  $("#barN").textContent = cart.reduce((a, l) => a + l.q, 0);
+  $("#barT").textContent = money(total());
+}
+const open = () => { $("#ov").classList.add("open"); document.body.style.overflow = "hidden"; view("cart"); };
+const closeD = () => { $("#ov").classList.remove("open"); document.body.style.overflow = ""; };
+$("#bar").onclick = open; $("#close").onclick = closeD;
+$("#ov").addEventListener("click", e => { if (e.target.id === "ov") closeD(); });
+document.addEventListener("keydown", e => { if (e.key === "Escape") closeD(); });
+
+function view(w) {
+  const B = $("#drB"), F = $("#drF");
+  if (w === "cart") {
+    $("#drT").textContent = "Enviar pedido";
+    if (!cart.length) {
+      B.innerHTML = `<div class="empty">Todavía no agregaste nada.<br>Elegí tus pastas y armá tu pedido.</div>`;
+      F.innerHTML = `<button class="btn btn-bordo" id="go">Ver productos</button>`;
+      $("#go").onclick = closeD; return;
+    }
+    B.innerHTML = cart.map((l, i) => { const p = prod(l.id); return `
+      <div class="it"><div><div class="nm">${p.nombre}</div><div class="vr">${l.v ? l.v + " · " : ""}${money(p.precio)} / ${p.u[0]}</div></div>
+      <div class="sub">${money(lineTotal(l))}</div>
+      <div class="qty" data-i="${i}"><button data-d="-1" aria-label="Menos">−</button><b>${l.q}</b><button data-d="1" aria-label="Más">+</button></div>
+      <button class="del" data-del="${i}">Quitar</button></div>`; }).join("");
+    F.innerHTML = `<div class="tot"><span>Total</span><span>${money(total())}</span></div>
+      <button class="btn btn-verde" id="fin">CONFIRMAR PEDIDO</button>
+      <p class="note">Se abre WhatsApp con tu pedido listo. Queda confirmado cuando te respondamos.</p>`;
+    $("#fin").onclick = send;
+  } else {
+    $("#drT").textContent = "Tus datos";
+    B.innerHTML = `<div class="f">
+      <label>Nombre y apellido<input type="text" id="fn" autocomplete="name"></label>
+      <label>Teléfono<input type="tel" id="ft" autocomplete="tel" inputmode="tel"></label>
+      <div class="opts" role="radiogroup" aria-label="Modalidad">
+        <label><input type="radio" name="mod" value="ret" checked> Retiro por el local</label>
+        <label><input type="radio" name="mod" value="ent"> Consultar por entrega</label>
+      </div>
+      <label id="adW" hidden>Dirección<input type="text" id="fa" autocomplete="street-address"></label>
+      <label>Observaciones<textarea id="fo" rows="3" placeholder="Opcional"></textarea></label>
+      <div class="err" id="err" role="alert"></div>
+      <p class="note">Tu pedido no queda confirmado hasta que te respondamos por WhatsApp con disponibilidad, precio y horario.</p></div>`;
+    F.innerHTML = `<div class="tot"><span>Total</span><span>${money(total())}</span></div>
+      <button class="btn btn-verde" id="send">ENVIAR PEDIDO POR WHATSAPP</button>
+      <button class="btn btn-line" id="back">Volver al pedido</button>`;
+    B.querySelectorAll("[name=mod]").forEach(r => r.onchange = () => $("#adW").hidden = r.value !== "ent" || !r.checked);
+    $("#back").onclick = () => view("cart"); $("#send").onclick = send;
+  }
+}
+$("#drB").addEventListener("click", e => {
+  const q = e.target.closest(".qty[data-i]"), i = q ? +q.dataset.i : null;
+  if (q && e.target.dataset.d) { cart[i].q = Math.max(1, Math.min(99, cart[i].q + +e.target.dataset.d)); save(); paintBar(); view("cart"); }
+  if (e.target.dataset.del !== undefined) { cart.splice(+e.target.dataset.del, 1); save(); paintBar(); view("cart"); }
+});
+
+function send() {
+  if (!cart.length) return;
+  const items = cart.map(l => { const p = prod(l.id);
+    return `- ${l.q} ${unidad(p, l.q)} de ${p.nombre.toLowerCase()}${l.v ? " de " + l.v.toLowerCase() : ""} (${money(lineTotal(l))})`; }).join("\n");
+  const msg = `¡Hola ${CONFIG.nombre}! Quiero realizar el siguiente pedido:\n\nPEDIDO:\n${items}\n\nTOTAL: ${money(total())}\n\n¡Espero confirmación del pedido!`;
+  const url = wa(msg);
+  const a = document.createElement("a");
+  a.href = url; a.target = "_blank"; a.rel = "noopener";
+  document.body.appendChild(a); a.click(); a.remove();
+  $("#drT").textContent = "¡Pedido listo!";
+  $("#drB").innerHTML = `<div class="empty">Se abrió WhatsApp con tu pedido.<br>Tocá <b>Enviar</b> en WhatsApp para que nos llegue.<br><br><a class="btn btn-verde" href="${url}" target="_blank" rel="noopener">Abrir WhatsApp de nuevo</a></div>`;
+  $("#drF").innerHTML = `<button class="btn btn-bordo" id="clr">Listo, cerrar</button>`;
+  $("#clr").onclick = () => { cart = []; save(); paintBar(); closeD(); };
+}
+
+paintBar();
+/* stock desde Google Sheets (si CONFIG.hojaStock tiene el link) */
+function parseCSV(t) {
+  const rows = []; let r = [], c = "", q = false;
+  for (let i = 0; i < t.length; i++) {
+    const ch = t[i];
+    if (q) { if (ch === '"') { if (t[i + 1] === '"') { c += '"'; i++; } else q = false; } else c += ch; }
+    else if (ch === '"') q = true;
+    else if (ch === ",") { r.push(c); c = ""; }
+    else if (ch === "\n" || ch === "\r") { if (ch === "\r" && t[i + 1] === "\n") i++; r.push(c); c = ""; rows.push(r); r = []; }
+    else c += ch;
+  }
+  if (c !== "" || r.length) { r.push(c); rows.push(r); }
+  return rows;
+}
+const norm = s => (s || "").toString().trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+async function cargarStock() {
+  if (!CONFIG.hojaStock) return;
+  try {
+    const res = await fetch(CONFIG.hojaStock + (CONFIG.hojaStock.includes("?") ? "&" : "?") + "t=" + Date.now());
+    if (!res.ok) return;
+    const rows = parseCSV(await res.text());
+    if (rows.length < 2) return;
+    const h = rows[0].map(norm); let ic = h.indexOf("codigo"), ie = h.indexOf("estado");
+    if (ic < 0) ic = 0; if (ie < 0) ie = 2;
+    const sin = [], lim = [];
+    rows.slice(1).forEach(r => {
+      const id = (r[ic] || "").trim(), e = norm(r[ie]);
+      if (!id || !prod(id)) return;
+      if (e.includes("sin") || e.includes("agot")) sin.push(id); else if (e.includes("limit")) lim.push(id);
+    });
+    SIN_STOCK.length = 0; SIN_STOCK.push(...sin);
+    STOCK_LIMITADO.length = 0; STOCK_LIMITADO.push(...lim);
+    cart = cart.filter(l => !SIN_STOCK.includes(l.id)); save(); paintBar(); renderCatalogo();
+  } catch (e) { /* sin conexión a la planilla: se usan las listas del código */ }
+}
+cargarStock();
+
+</script>
+<script>document.getElementById("waFab").href="https://wa.me/"+CONFIG.whatsapp+"?text="+encodeURIComponent("¡Hola En Tu Salsa! Quiero hacer un pedido.");</script>
+</body>
+</html>
